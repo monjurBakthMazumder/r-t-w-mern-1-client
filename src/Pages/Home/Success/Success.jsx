@@ -1,6 +1,6 @@
 const Success = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-white my-10 max-w-6xl mx-auto px-[5%]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-white my-10 md:my-20 max-w-7xl mx-auto px-[5%]">
       <div className="bg-secondary px-5 py-10">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
           15 Years of <p className="my-2">undefeated</p> success
