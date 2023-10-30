@@ -41,17 +41,17 @@ const Banner = () => {
       <SwiperSlide>
         <div className="relative">
           <img src={img1} alt="" />
-          <div className="absolute flex items-center h-full top-0 w-full text-white text-left px-[5%]">
+          <div className="absolute flex justify-center items-center text-center h-full top-0 w-full text-white px-[5%]">
             <div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold ">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
                 Affordable Price For Car Servicing
               </h1>
-              <p className="my-5">
+              <p className="my-1 sm:my-5 text-xs sm:text-lg">
                 There are many variations of passages of available, but the
                 majority have suffered alteration in some form
               </p>
-              <Link to={"/login"}>
-                <button className="bg-secondary px-7 py-3 font-medium text-lg lg:text-xl flex justify-center items-center gap-2">
+              <Link to={"/login"} className="flex justify-center items-center">
+                <button className="bg-secondary px-2 py-1 sm:px-7 sm:py-3 font-medium text-sm sm:text-lg lg:text-xl flex justify-center items-center gap-2">
                   View all service <AiOutlineArrowRight />
                 </button>
               </Link>
@@ -62,17 +62,17 @@ const Banner = () => {
       <SwiperSlide>
         <div className="relative">
           <img src={img2} alt="" />
-          <div className="absolute flex items-center h-full top-0 w-full text-white text-left px-[5%]">
+          <div className="absolute flex justify-center items-center text-center h-full top-0 w-full text-white px-[5%]">
             <div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold ">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
                 Affordable Price For Car Servicing
               </h1>
-              <p className="my-5">
+              <p className="my-1 sm:my-5 text-xs sm:text-lg">
                 There are many variations of passages of available, but the
                 majority have suffered alteration in some form
               </p>
-              <Link to={"/login"}>
-                <button className="bg-secondary px-7 py-3 font-medium text-lg lg:text-xl flex justify-center items-center gap-2">
+              <Link to={"/login"} className="flex justify-center items-center">
+                <button className="bg-secondary px-2 py-1 sm:px-7 sm:py-3 font-medium text-sm sm:text-lg lg:text-xl flex justify-center items-center gap-2">
                   View all service <AiOutlineArrowRight />
                 </button>
               </Link>
@@ -83,17 +83,17 @@ const Banner = () => {
       <SwiperSlide>
         <div className="relative">
           <img src={img3} alt="" />
-          <div className="absolute flex items-center h-full top-0 w-full text-white text-left px-[5%]">
+          <div className="absolute flex justify-center items-center text-center h-full top-0 w-full text-white px-[5%]">
             <div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold ">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
                 Affordable Price For Car Servicing
               </h1>
-              <p className="my-5">
+              <p className="my-1 sm:my-5 text-xs sm:text-lg">
                 There are many variations of passages of available, but the
                 majority have suffered alteration in some form
               </p>
-              <Link to={"/login"}>
-                <button className="bg-secondary px-7 py-3 font-medium text-lg lg:text-xl flex justify-center items-center gap-2">
+              <Link to={"/login"} className="flex justify-center items-center">
+                <button className="bg-secondary px-2 py-1 sm:px-7 sm:py-3 font-medium text-sm sm:text-lg lg:text-xl flex justify-center items-center gap-2">
                   View all service <AiOutlineArrowRight />
                 </button>
               </Link>
