@@ -6,6 +6,8 @@ import About from "../Pages/About/About";
 import ServicesPage from "../Pages/ServicesPage/ServicesPage";
 import Details from "../Pages/Details/Details";
 import Checkout from "../Pages/Checkout/Checkout";
+import SingIn from "../Pages/Authentication/SingIn/SingIn";
+import SingUp from "../Pages/Authentication/SingUp/SingUp";
 
 const Router = createBrowserRouter([
     {
@@ -34,6 +36,14 @@ const Router = createBrowserRouter([
                 path: '/Checkout/:id',
                 element: <Checkout/>,
                 loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+            },
+            {
+                path: '/sing-in',
+                element: <SingIn/>
+            },
+            {
+                path: '/sing-up',
+                element: <SingUp/>
             }
             
         ]
