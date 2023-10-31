@@ -4,6 +4,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import About from "../Pages/About/About";
 import ServicesPage from "../Pages/ServicesPage/ServicesPage";
+import Details from "../Pages/Details/Details";
 
 const Router = createBrowserRouter([
     {
@@ -22,7 +23,13 @@ const Router = createBrowserRouter([
             {
                 path: '/services',
                 element: <ServicesPage/>
-            }
+            },
+            {
+                path: '/services/:id',
+                element: <Details/>,
+                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+            },
+            
         ]
     }
 ])

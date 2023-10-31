@@ -9,7 +9,7 @@ export default {
 
           secondary: "#ee0d09",
 
-          accent: "#1fb2a6",
+          accent: "#F3F3F3",
 
           neutral: "#97979",
 

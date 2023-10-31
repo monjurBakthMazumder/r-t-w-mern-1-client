@@ -6,9 +6,9 @@ import WhyChooseUs from "../../Component/WhyChooseUs/WhyChooseUs";
 const About = () => {
     return (
         <div>
-            <Banner/>
-            <AboutUs/>
+            <Banner title={'About Us'}/>
             <Success/>
+            <AboutUs/>
             <WhyChooseUs/>
         </div>
     );
