@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const UseLoadService = () => {
+const useLoadService = () => {
     const [services, setServices] = useState([])
     useEffect(()=> {
         axios.get('http://localhost:5000/services')
@@ -10,4 +10,4 @@ const UseLoadService = () => {
     return services
 };
 
-export default UseLoadService;
+export default useLoadService;

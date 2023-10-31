@@ -1,4 +1,4 @@
-import UseLoadService from "../../Hock/UseLoadService";
+import UseLoadService from "../../Hock/useLoadService";
 import ServiceCard from "./ServiceCard";
 
 const Services = () => {
