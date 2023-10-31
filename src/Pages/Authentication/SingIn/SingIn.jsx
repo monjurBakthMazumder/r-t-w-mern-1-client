@@ -1,15 +1,32 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAuth from "../../../Hock/useAuth";
+import Swal from "sweetalert2";
 const SingIn = () => {
   const [isShow, setIsShow] = useState(false);
+  const [error, setError] = useState('')
+  const { loginUser } = useAuth();
+  const navigate = useNavigate();
   const handleSingIn = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    setError('')
+    loginUser(email, password)
+    .then(() => {
+      navigate("/");
+      Swal.fire(
+        "Login successful!!",
+        "Successfully logged in",
+        "success"
+      );
+    })
+    .catch(()=>{
+      setError('Email or password incorrect')
+    })
   };
   return (
     <div className="hero my-20">
@@ -18,7 +35,7 @@ const SingIn = () => {
           <h1 className="text-4xl text-center font-bold text-primary mb-5">
             Sign In
           </h1>
-        <SocialLogin />
+          <SocialLogin />
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
@@ -51,6 +68,7 @@ const SingIn = () => {
               </span>
             </div>
           </div>
+            <p className="text-red-600 text-xs">{error}</p>
           <div className="form-control mt-6">
             <button
               className="btn border border-secondary text-white  bg-secondary hover:text-secondary hover:bg-transparent hover:border-secondary "

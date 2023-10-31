@@ -1,11 +1,19 @@
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../Hock/useAuth';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const SocialLogin = () => {
     const {googleLogin} = useAuth()
+    const navigate = useNavigate()
     const handleLogin = media => {
         media()
         .then(()=> {
-            alert('Login successful')
+            navigate('/')
+            Swal.fire(
+                'Login successful!!',
+                'Successfully logged in',
+                'success'
+              )
         })
     }
     return (

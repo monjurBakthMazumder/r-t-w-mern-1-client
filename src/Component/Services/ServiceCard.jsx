@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const ServiceCard = ({service}) => {
-    console.log(service);
     const {_id, title, img} = service || {}
     return (
         <div className='border'>
