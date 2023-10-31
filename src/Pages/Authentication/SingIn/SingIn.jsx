@@ -8,6 +8,7 @@ const SingIn = () => {
   const [isShow, setIsShow] = useState(false);
   const [error, setError] = useState('')
   const { loginUser } = useAuth();
+  const loc = localStorage.getItem('locations')
   const navigate = useNavigate();
   const handleSingIn = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const SingIn = () => {
     setError('')
     loginUser(email, password)
     .then(() => {
-      navigate("/");
+      navigate(loc ? loc : "/");
       Swal.fire(
         "Login successful!!",
         "Successfully logged in",

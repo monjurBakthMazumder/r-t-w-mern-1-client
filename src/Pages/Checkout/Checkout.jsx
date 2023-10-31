@@ -1,14 +1,49 @@
 import { useLoaderData } from "react-router-dom";
 import Banner from "../../Component/Banner/Banner";
+import useAuth from "../../Hock/useAuth";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
-    const data = useLoaderData()
-    const {title, price} = data || {}
+  const { user } = useAuth();
+  const data = useLoaderData();
+  const { title, price, img } = data || {};
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    const form = e.target
+    const service = form.service.value
+    const email = form.email.value
+    const phone = form.phone.value
+    const date = form.date.value
+    const message = form.message.value
+    const information = {service, email, phone, date, message, price, img}
+    console.log(information);
+    fetch('http://localhost:5000/checkout',{
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(information)
+    })
+    .then(res=> res.json())
+    .then(data => {
+      if(data.insertedId){
+        Swal.fire(
+          'Checkout successful!!',
+          'Successfully Checkout',
+          'success'
+        )
+      }
+      console.log(data);
+    })
+  };
   return (
     <>
       <Banner title={"Check Out"} />
-      <div className="my-10 md:my-20 mx-[5%] sm:mx-[10%] bg-accent rounded px-5 py-10 sm:px-14 sm:py-20" >
-        <form className="text-lg font-light text-primary">
+      <div className="my-10 md:my-20 mx-[5%] sm:mx-[10%] bg-accent rounded px-5 py-10 sm:px-14 sm:py-20">
+        <form
+          className="text-lg font-light text-primary"
+          onSubmit={handleCheckout}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <label htmlFor="service">
               Service
@@ -16,6 +51,7 @@ const Checkout = () => {
                 type="text"
                 value={title}
                 placeholder="service"
+                required
                 name="service"
                 className="input input-bordered input-secondary w-full mt-1"
               />
@@ -24,7 +60,9 @@ const Checkout = () => {
               Email
               <input
                 type="email"
+                value={user?.email}
                 placeholder="Email"
+                required
                 name="email"
                 className="input input-bordered input-secondary w-full mt-1"
               />
@@ -36,17 +74,17 @@ const Checkout = () => {
               <input
                 type="number"
                 placeholder="Phone Number"
+                required
                 name="phone"
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
             <label htmlFor="price">
-              Price
+              Date
               <input
-                type="number"
-                value={price}
-                placeholder="Price"
-                name="price"
+                type="date"
+                required
+                name="date"
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -57,6 +95,7 @@ const Checkout = () => {
               <textarea
                 className="textarea textarea-secondary resize-none w-full mt-1 h-40"
                 placeholder="Message"
+                required
                 name="message"
               ></textarea>
             </label>

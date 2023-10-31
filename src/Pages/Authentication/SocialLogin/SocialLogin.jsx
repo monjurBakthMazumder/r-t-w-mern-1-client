@@ -5,10 +5,11 @@ import Swal from 'sweetalert2';
 const SocialLogin = () => {
     const {googleLogin} = useAuth()
     const navigate = useNavigate()
+    const loc = localStorage.getItem('locations')
     const handleLogin = media => {
         media()
         .then(()=> {
-            navigate('/')
+            navigate(loc ? loc : '/')
             Swal.fire(
                 'Login successful!!',
                 'Successfully logged in',

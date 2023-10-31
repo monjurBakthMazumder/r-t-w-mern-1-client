@@ -9,6 +9,7 @@ const SingUp = () => {
   const [isShow, setIsShow] = useState(false);
   const [error, setError] = useState("");
   const { createUser, setUser } = useAuth();
+  const loc = localStorage.getItem('locations')
   const navigate = useNavigate();
   const handleSingIn = (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const SingUp = () => {
     createUser(email, password)
       .then((result) => {
         console.log(result);
-        navigate("/");
+        navigate(loc ? loc :"/");
         Swal.fire(
           "Account created!!",
           "Successfully create account",
