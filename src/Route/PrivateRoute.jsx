@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import useAuth from '../Hock/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../Component/Loading/Loading';
 
 const PrivateRoute = ({children}) => {
     const location = useLocation()
-    const {user} = useAuth()
+    const {user, loading} = useAuth()
+    if(loading){
+        return <Loading/>
+    }
     // get location from local storage
     const getLoc = () => {
         const loc = localStorage.getItem('locations')

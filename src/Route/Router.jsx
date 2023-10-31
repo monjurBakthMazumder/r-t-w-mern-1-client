@@ -9,6 +9,12 @@ import Checkout from "../Pages/Checkout/Checkout";
 import SingIn from "../Pages/Authentication/SingIn/SingIn";
 import SingUp from "../Pages/Authentication/SingUp/SingUp";
 import PrivateRoute from "./PrivateRoute";
+import Booking from "../Pages/Booking/Booking";
+import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
+import AllServices from "../Pages/Dashboard/DashboardPage/AllServices/AllServices";
+import AllEmployee from "../Pages/Dashboard/DashboardPage/AllEmployee/AllEmployee";
+import AddServices from "../Pages/Dashboard/DashboardPage/AddServices/AddServices";
+import AddEmployee from "../Pages/Dashboard/DashboardPage/AddEmployee/AddEmployee";
 
 const Router = createBrowserRouter([
     {
@@ -37,6 +43,32 @@ const Router = createBrowserRouter([
                 path: '/Checkout/:id',
                 element: <PrivateRoute><Checkout/></PrivateRoute>,
                 loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+            },
+            {
+                path: '/booking',
+                element: <PrivateRoute><Booking/></PrivateRoute>,
+            },
+            {
+                path: '/dashboard',
+                element: <Dashboard/>,
+                children: [
+                    {
+                        path: '/dashboard',
+                        element: <AllServices/>
+                    },
+                    {
+                        path: '/dashboard/add-services',
+                        element: <AddServices/>
+                    },
+                    {
+                        path: '/dashboard/all-employee',
+                        element: <AllEmployee/>
+                    },
+                    {
+                        path: '/dashboard/add-employee',
+                        element: <AddEmployee/>
+                    },
+                ]
             },
             {
                 path: '/sing-in',

@@ -17,7 +17,7 @@ const Checkout = () => {
     const message = form.message.value
     const information = {service, email, phone, date, message, price, img}
     console.log(information);
-    fetch('http://localhost:5000/checkout',{
+    fetch('http://localhost:5000/bookings',{
       method: 'POST',
       headers: {
         'content-type': 'application/json'

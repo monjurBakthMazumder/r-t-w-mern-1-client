@@ -6,15 +6,10 @@ import Swal from "sweetalert2";
 const Navbar = () => {
   const { user, logout } = useAuth();
   const handleLogOut = () => {
-    logout()
-    .then(()=> {
-      Swal.fire(
-        'Log Out !!',
-        'Logout successful',
-        'success'
-      )
-    })
-  }
+    logout().then(() => {
+      Swal.fire("Log Out !!", "Logout successful", "success");
+    });
+  };
   const navItem = (
     <>
       <li>
@@ -57,6 +52,39 @@ const Navbar = () => {
           }
         >
           Services
+        </NavLink>
+      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/booking"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "underline text-secondary font-medium"
+                  : ""
+              }
+            >
+              Booking
+            </NavLink>
+          </li>
+        </>
+      )}
+
+      <li>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "underline text-secondary font-medium"
+              : ""
+          }
+        >
+          Dashboard
         </NavLink>
       </li>
     </>
@@ -106,7 +134,13 @@ const Navbar = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL ? user?.photoURL : 'https://th.bing.com/th/id/R.29ff80e1b872c3a34502081bb24ddc77?rik=h8tKL%2fwBLXoG%2fQ&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_504768.png&ehk=QoBgGBjkzTJNk0pSWlKqqP5cBkdE2%2b593jcUJXVPBCg%3d&risl=&pid=ImgRaw&r=0'} />
+                <img
+                  src={
+                    user?.photoURL
+                      ? user?.photoURL
+                      : "https://th.bing.com/th/id/R.29ff80e1b872c3a34502081bb24ddc77?rik=h8tKL%2fwBLXoG%2fQ&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_504768.png&ehk=QoBgGBjkzTJNk0pSWlKqqP5cBkdE2%2b593jcUJXVPBCg%3d&risl=&pid=ImgRaw&r=0"
+                  }
+                />
               </div>
             </label>
             <ul
