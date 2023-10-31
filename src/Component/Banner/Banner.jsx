@@ -8,9 +8,9 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import img1 from "../../../asset/Banner/1.jpg";
-import img2 from "../../../asset/Banner/2.jpg";
-import img3 from "../../../asset/Banner/3.jpg";
+import img1 from "../../asset/Banner/1.jpg";
+import img2 from "../../asset/Banner/2.jpg";
+import img3 from "../../asset/Banner/3.jpg";
 import "./Banner.css";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -50,7 +50,7 @@ const Banner = () => {
                 There are many variations of passages of available, but the
                 majority have suffered alteration in some form
               </p>
-              <Link to={"/login"} className="flex justify-center items-center">
+              <Link to={"/services"} className="flex justify-center items-center">
                 <button className="bg-secondary px-2 py-1 sm:px-7 sm:py-3 font-medium text-sm sm:text-lg lg:text-xl flex justify-center items-center gap-2">
                   View all service <AiOutlineArrowRight />
                 </button>
@@ -71,7 +71,7 @@ const Banner = () => {
                 There are many variations of passages of available, but the
                 majority have suffered alteration in some form
               </p>
-              <Link to={"/login"} className="flex justify-center items-center">
+              <Link to={"/services"} className="flex justify-center items-center">
                 <button className="bg-secondary px-2 py-1 sm:px-7 sm:py-3 font-medium text-sm sm:text-lg lg:text-xl flex justify-center items-center gap-2">
                   View all service <AiOutlineArrowRight />
                 </button>
@@ -92,7 +92,7 @@ const Banner = () => {
                 There are many variations of passages of available, but the
                 majority have suffered alteration in some form
               </p>
-              <Link to={"/login"} className="flex justify-center items-center">
+              <Link to={"/services"} className="flex justify-center items-center">
                 <button className="bg-secondary px-2 py-1 sm:px-7 sm:py-3 font-medium text-sm sm:text-lg lg:text-xl flex justify-center items-center gap-2">
                   View all service <AiOutlineArrowRight />
                 </button>

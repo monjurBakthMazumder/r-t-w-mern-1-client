@@ -1,8 +1,8 @@
-import person from '../../../asset/about_us/person.jpg'
-import parts from '../../../asset/about_us/parts.jpg'
+import person from '../../asset/about_us/person.jpg'
+import parts from '../../asset/about_us/parts.jpg'
 const AboutUs = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-10 md:my-20 px-[5%] sm:px-[10%]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-10 md:mt-20 mb-28 px-[5%] sm:px-[10%]">
             <div className="relative h-fit">
                 <img src={person} alt="" className='w-4/5 rounded-lg'/>
                 <img src={parts} alt="" className='absolute top-1/2 w-1/2 right-0 rounded-lg border-8 border-white' />
