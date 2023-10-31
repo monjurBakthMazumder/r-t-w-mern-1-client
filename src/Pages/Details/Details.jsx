@@ -3,7 +3,7 @@ import Banner from "../../Component/Banner/Banner";
 
 const Details = () => {
   const data = useLoaderData();
-  const { title, img, price, description, facility } = data || {};
+  const {_id, title, img, price, description, facility } = data || {};
   return (
     <>
       <Banner title={'Service details'}/>
@@ -31,7 +31,7 @@ const Details = () => {
               </div>
             ))}
           </div>
-          <Link to={"/"}>
+          <Link to={`/Checkout/${_id}`}>
             <button className="w-full py-3 bg-secondary text-white text-lg border border-secondary hover:text-secondary hover:bg-transparent my-5">
               Proceed Checkout
             </button>
