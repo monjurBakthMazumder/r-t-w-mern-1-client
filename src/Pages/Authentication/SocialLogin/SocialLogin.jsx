@@ -1,15 +1,15 @@
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../Hock/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 const SocialLogin = () => {
     const {googleLogin} = useAuth()
     const navigate = useNavigate()
-    const loc = localStorage.getItem('locations')
+    const loc = useLocation()
     const handleLogin = media => {
         media()
         .then(()=> {
-            navigate(loc ? loc : '/')
+            navigate(loc.state ? loc.state : '/')
             Swal.fire(
                 'Login successful!!',
                 'Successfully logged in',

@@ -9,20 +9,9 @@ const PrivateRoute = ({children}) => {
     if(loading){
         return <Loading/>
     }
-    // get location from local storage
-    const getLoc = () => {
-        const loc = localStorage.getItem('locations')
-        if (loc) {
-            return loc
-        }
-        return ''
-    }
-    // set location in local storage
-    let loc = getLoc()
-    loc  = location.pathname
-    localStorage.setItem('locations', loc)
+    console.log(location);
     if (!user) {
-        return <Navigate to={'/sing-in'} />
+        return <Navigate to={'/sing-in'} state={location?.pathname} replace/>
     }
     return children
 };

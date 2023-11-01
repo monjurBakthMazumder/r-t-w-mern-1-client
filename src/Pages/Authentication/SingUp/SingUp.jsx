@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAuth from "../../../Hock/useAuth";
 import Swal from "sweetalert2";
@@ -9,7 +9,7 @@ const SingUp = () => {
   const [isShow, setIsShow] = useState(false);
   const [error, setError] = useState("");
   const { createUser, setUser } = useAuth();
-  const loc = localStorage.getItem('locations')
+  const loc = useLocation()
   const navigate = useNavigate();
   const handleSingIn = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const SingUp = () => {
     createUser(email, password)
       .then((result) => {
         console.log(result);
-        navigate(loc ? loc :"/");
+        navigate(loc.state ? loc.state :"/");
         Swal.fire(
           "Account created!!",
           "Successfully create account",

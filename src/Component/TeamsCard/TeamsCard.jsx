@@ -7,11 +7,11 @@ const TeamsCard = ({ team }) => {
     team || {};
   return (
     <div className="card card-compact border">
-      <figure className="p-5 pb-0">
+      <figure className="p-5 pb-0 h-52">
         <img
           src={img}
           alt={`image of ${name}`}
-          className="h-48"
+          className="h-full w-fit"
         />
       </figure>
       <div className="card-body text-center">
