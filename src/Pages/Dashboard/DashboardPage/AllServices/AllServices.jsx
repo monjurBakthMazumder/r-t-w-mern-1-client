@@ -21,7 +21,7 @@ const AllServices = () => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/employees/${id}`, {
+          fetch(`http://localhost:5000/services/${id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
@@ -29,7 +29,7 @@ const AllServices = () => {
               if (data.deletedCount) {
                 Swal.fire(
                   "Deleted!",
-                  "The employee has been deleted.",
+                  "The service has been deleted.",
                   "success"
                 );
                 const remainder = services?.filter(

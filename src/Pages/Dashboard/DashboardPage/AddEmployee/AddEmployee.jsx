@@ -50,7 +50,7 @@ const AddEmployee = () => {
   };
   return (
     <>
-      <Banner title={"Add employee"} />
+      <Banner title={"Add Employee"} />
       <div className="my-10 w-full bg-accent rounded px-5 py-10 sm:px-14 sm:py-20">
         <form
           className="text-lg font-light text-primary"
