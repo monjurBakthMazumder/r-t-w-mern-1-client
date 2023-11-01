@@ -15,6 +15,8 @@ import AllServices from "../Pages/Dashboard/DashboardPage/AllServices/AllService
 import AllEmployee from "../Pages/Dashboard/DashboardPage/AllEmployee/AllEmployee";
 import AddServices from "../Pages/Dashboard/DashboardPage/AddServices/AddServices";
 import AddEmployee from "../Pages/Dashboard/DashboardPage/AddEmployee/AddEmployee";
+import Teams from "../Pages/Teams/Teams";
+import TeamDetails from "../Pages/TeamDetails/TeamDetails";
 
 const Router = createBrowserRouter([
     {
@@ -29,6 +31,14 @@ const Router = createBrowserRouter([
             {
                 path: '/about',
                 element: <About/>
+            },
+            {
+                path: '/teams',
+                element: <Teams/>
+            },
+            {
+                path: '/teams/:id',
+                element: <TeamDetails/>
             },
             {
                 path: '/services',

@@ -7,7 +7,7 @@ const Success = () => {
         </h1>
         <p className="sm:text-lg font-light my-5">We have a long and proud history givin emphasis to environment social and economic outcomes to deliver places that respond.</p>
       </div>
-      <div className="lg:col-span-2 px-5 py-10 shadow-lg border">
+      <div className="lg:col-span-2 px-5 py-10 shadow-lg border bg-white">
         <p className="text-lg font-light text-primary">OUR HISTORY</p>
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mt-3 mb-5">
           We Give Quality Services & Passion with our services !

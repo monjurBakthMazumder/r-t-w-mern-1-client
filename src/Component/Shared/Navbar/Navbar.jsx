@@ -54,6 +54,20 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/teams"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "underline text-secondary font-medium"
+              : ""
+          }
+        >
+          Teams
+        </NavLink>
+      </li>
       {user && (
         <>
           <li>
