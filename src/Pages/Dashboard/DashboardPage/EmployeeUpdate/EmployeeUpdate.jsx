@@ -1,8 +1,29 @@
 import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
-const AddEmployee = () => {
-  const handleAdd = (e) => {
+const EmployeeUpdate = () => {
+  const employee = useLoaderData();
+  const navigate = useNavigate()
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+  const {
+    _id,
+    name,
+    img,
+    designation,
+    email,
+    facebook,
+    instagram,
+    phone,
+    date,
+    twitter,
+    linkedIn,
+    details,
+  } = employee || {};
+  const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -15,7 +36,7 @@ const AddEmployee = () => {
     const twitter = form.twitter.value;
     const linkedIn = form.linkedIn.value;
     const details = form.details.value;
-    const employee = {
+    const updatedEmployee = {
       name,
       designation,
       email,
@@ -27,34 +48,35 @@ const AddEmployee = () => {
       linkedIn,
       details,
     };
-    console.log(employee);
-    fetch("http://localhost:5000/employees", {
-      method: "POST",
+    console.log(updatedEmployee);
+    fetch(`http://localhost:5000/employees/${_id}`, {
+      method: "PUT",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      body: JSON.stringify(employee),
+      body: JSON.stringify(updatedEmployee),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.insertedId) {
+        if (data.modifiedCount) {
           Swal.fire(
-            "Added successful!!",
-            "New employee added successfully",
+            "Update successful!!",
+            "The employee's information updated successfully",
             "success"
           );
-          form.reset()
+          form.reset();
         }
       });
   };
   return (
     <>
-      <Banner title={"Add employee"} />
+      <Banner title={"Update employee"} />
+        <button onClick={handleGoBack} className="px-5 py-3 bg-secondary text-white text-lg border border-secondary hover:text-secondary hover:bg-transparent flex justify-center items-center gap-2"><AiOutlineArrowLeft/> Go back</button>
       <div className="my-10 w-full bg-accent rounded px-5 py-10 sm:px-14 sm:py-20">
         <form
           className="text-lg font-light text-primary"
-          onSubmit={handleAdd}
+          onSubmit={handleUpdate}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <label>
@@ -62,8 +84,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="Employee name"
-                required
                 name="name"
+                defaultValue={name}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -72,8 +94,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="Designation of employee"
-                required
                 name="designation"
+                defaultValue={designation}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -84,8 +106,8 @@ const AddEmployee = () => {
               <input
                 type="email"
                 placeholder="Email"
-                required
                 name="email"
+                defaultValue={email}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -94,8 +116,8 @@ const AddEmployee = () => {
               <input
                 type="number"
                 placeholder="Phone Number"
-                required
                 name="phone"
+                defaultValue={phone}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -106,8 +128,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="Image URL"
-                required
                 name="img"
+                defaultValue={img}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -115,8 +137,8 @@ const AddEmployee = () => {
               Joining date
               <input
                 type="date"
-                required
                 name="date"
+                defaultValue={date}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -127,8 +149,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="Facebook link"
-                required
                 name="facebook"
+                defaultValue={facebook}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -137,8 +159,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="Instagram link"
-                required
                 name="instagram"
+                defaultValue={instagram}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -149,8 +171,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="Twitter link"
-                required
                 name="twitter"
+                defaultValue={twitter}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -159,8 +181,8 @@ const AddEmployee = () => {
               <input
                 type="text"
                 placeholder="LinkedIn link"
-                required
                 name="linkedIn"
+                defaultValue={linkedIn}
                 className="input input-bordered input-secondary w-full mt-1"
               />
             </label>
@@ -171,8 +193,8 @@ const AddEmployee = () => {
               <textarea
                 className="textarea textarea-secondary resize-none w-full mt-1 h-40"
                 placeholder="Details"
-                required
                 name="details"
+                defaultValue={details}
               ></textarea>
             </label>
           </div>
@@ -190,4 +212,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default EmployeeUpdate;

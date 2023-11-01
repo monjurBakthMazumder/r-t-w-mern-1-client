@@ -34,8 +34,10 @@ const Booking = () => {
                 "Your booked service has been deleted.",
                 "success"
               );
-              const remainder = bookings?.filter(booking => booking?._id !== id)
-              setBookings(remainder)
+              const remainder = bookings?.filter(
+                (booking) => booking?._id !== id
+              );
+              setBookings(remainder);
             }
           });
       }
@@ -43,16 +45,15 @@ const Booking = () => {
   };
   return (
     <div className="my-10 md:my-20 px-[5%] sm:px-[10%]">
+      <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
+        Total Bookings: {bookings?.length}
+      </h1>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>
             <tr className="text-xl text-primary">
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
+              <th>Image</th>
               <th>Service</th>
               <th>Price</th>
               <th>Date</th>

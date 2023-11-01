@@ -16,7 +16,8 @@ import AllEmployee from "../Pages/Dashboard/DashboardPage/AllEmployee/AllEmploye
 import AddServices from "../Pages/Dashboard/DashboardPage/AddServices/AddServices";
 import AddEmployee from "../Pages/Dashboard/DashboardPage/AddEmployee/AddEmployee";
 import Teams from "../Pages/Teams/Teams";
-import TeamDetails from "../Pages/TeamDetails/TeamDetails";
+import EmployeeDetails from "../Pages/EmployeeDetails/EmployeeDetails";
+import EmployeeUpdate from "../Pages/Dashboard/DashboardPage/EmployeeUpdate/EmployeeUpdate";
 
 const Router = createBrowserRouter([
     {
@@ -38,7 +39,8 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/teams/:id',
-                element: <TeamDetails/>
+                element: <EmployeeDetails/>,
+                loader: ({params}) => fetch(`http://localhost:5000/employees/${params.id}`)
             },
             {
                 path: '/services',
@@ -77,6 +79,11 @@ const Router = createBrowserRouter([
                     {
                         path: '/dashboard/add-employee',
                         element: <AddEmployee/>
+                    },
+                    {
+                        path: '/dashboard/update-employee/:id',
+                        element: <EmployeeUpdate/>,
+                        loader: ({params}) => fetch(`http://localhost:5000/employees/${params.id}`)
                     },
                 ]
             },
