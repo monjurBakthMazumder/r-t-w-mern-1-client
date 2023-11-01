@@ -2,15 +2,22 @@ import { useEffect, useState } from "react";
 import useAuth from "../../Hock/useAuth";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 
 const Booking = () => {
   const [bookings, setBookings] = useState();
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/bookings?email=${user?.email}`, {credentials: 'include'})
+  //     .then((res) => res.json())
+  //     .then((data) => setBookings(data));
+  // }, [user?.email]);
   useEffect(() => {
-    fetch(`http://localhost:5000/bookings?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setBookings(data));
-  }, [user?.email]);
+    axiosSecure
+      .get(`/bookings?email=${user?.email}`)
+      .then(res => setBookings(res.data));
+  }, [axiosSecure, user?.email]);
 
   const handleDelete = (id) => {
     Swal.fire({
