@@ -27,7 +27,7 @@ const AllServicesRow = ({ service, handleDelete }) => {
           <td>${price}</td>
           <th>
             <div className="flex items-center gap-2">
-              <Link to={`/dashboard/update-employee/${_id}`}>
+              <Link to={`/dashboard/update-services/${_id}`}>
                 <AiFillEdit className="text-2xl text-primary hover:text-secondary" />
               </Link>
               <AiFillDelete

@@ -44,7 +44,7 @@ const AllServices = () => {
     return (
         <div className="my-10 md:my-20 w-full">
           <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
-            Total Employees: {services?.length}
+            Total Services: {services?.length}
           </h1>
           <div className="overflow-x-auto">
             <table className="table">
