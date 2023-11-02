@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const ServicesUpdate = () => {
   const loadedServices = useLoaderData();
@@ -9,6 +10,8 @@ const ServicesUpdate = () => {
   const handleGoBack = () => {
     navigate(-1);
   };
+
+  const axiosSecure = useAxiosSecure()
   const { _id, title, img, price, description, facility } =
     loadedServices || {};
   const handleUpdateService = (e) => {
@@ -50,25 +53,37 @@ const ServicesUpdate = () => {
         },
       ],
     };
-    console.log(updateService);
-    fetch(`http://localhost:5000/services/${_id}`, {
-      method: "Put",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateService),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount) {
+
+
+    // fetch(`http://localhost:5000/services/${_id}`, {
+    //   method: "Put",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(updateService),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.modifiedCount) {
+    //       Swal.fire(
+    //         "Update successful!!",
+    //         "Services Updated successfully",
+    //         "success"
+    //       );
+    //     }
+    //   });
+
+      axiosSecure.put(`/services/${_id}`, updateService)
+      .then(res=> {
+        if (res.data.modifiedCount) {
           Swal.fire(
             "Update successful!!",
             "Services Updated successfully",
             "success"
           );
         }
-      });
+      })
   };
   return (
     <>

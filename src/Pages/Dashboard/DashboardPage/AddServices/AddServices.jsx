@@ -1,7 +1,9 @@
 import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
+import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const AddServices = () => {
+  const axiosSecure = useAxiosSecure()
   const handleAddService = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -41,18 +43,31 @@ const AddServices = () => {
             },
          ]
          };
-    console.log(service);
-    fetch("http://localhost:5000/services", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(service),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
+
+
+    // fetch("http://localhost:5000/services", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(service),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.insertedId) {
+    //       Swal.fire(
+    //         "Added successful!!",
+    //         "New services added successfully",
+    //         "success"
+    //       );
+    //       form.reset();
+    //     }
+    //   });
+
+      axiosSecure.post('/services', service)
+      .then(res=> {
+        if (res.data.insertedId) {
           Swal.fire(
             "Added successful!!",
             "New services added successfully",
@@ -60,7 +75,7 @@ const AddServices = () => {
           );
           form.reset();
         }
-      });
+      })
   };
   return (
     <>

@@ -1,14 +1,19 @@
 import Swal from "sweetalert2";
 import AllEmployeeRow from "./AllEmployeeRow";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const AllEmployee = () => {
-  const [employees, setEmployees] = useState([])
-  useEffect(()=> {
-    fetch('http://localhost:5000/employees')
-        .then(res=> res.json())
-        .then(data=> setEmployees(data))
-  },[])
+  const [employees, setEmployees] = useState([]);
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    // fetch("http://localhost:5000/employees")
+    //   .then((res) => res.json())
+    //   .then((data) => setEmployees(data));
+
+      axiosSecure.get('/employees')
+      .then(res=> setEmployees(res.data))
+  }, [axiosSecure]);
   console.log(employees);
   const handleDelete = (id) => {
     Swal.fire({
@@ -21,23 +26,34 @@ const AllEmployee = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/employees/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount) {
-              Swal.fire(
-                "Deleted!",
-                "The employee has been deleted.",
-                "success"
-              );
-              const remainder = employees?.filter(
-                (employee) => employee?._id !== id
-              );
-              setEmployees(remainder);
-            }
-          });
+
+        // fetch(`http://localhost:5000/employees/${id}`, {
+        //   method: "DELETE",
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     if (data.deletedCount) {
+        //       Swal.fire(
+        //         "Deleted!",
+        //         "The employee has been deleted.",
+        //         "success"
+        //       );
+        //       const remainder = employees?.filter(
+        //         (employee) => employee?._id !== id
+        //       );
+        //       setEmployees(remainder);
+        //     }
+        //   });
+
+        axiosSecure.delete(`/employees/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            Swal.fire("Deleted!", "The employee has been deleted.", "success");
+            const remainder = employees?.filter(
+              (employee) => employee?._id !== id
+            );
+            setEmployees(remainder);
+          }
+        });
       }
     });
   };
@@ -62,7 +78,11 @@ const AllEmployee = () => {
           </thead>
           <tbody>
             {employees?.map((employee) => (
-              <AllEmployeeRow key={employee._id} employee={employee} handleDelete={handleDelete}/>
+              <AllEmployeeRow
+                key={employee._id}
+                employee={employee}
+                handleDelete={handleDelete}
+              />
             ))}
           </tbody>
         </table>

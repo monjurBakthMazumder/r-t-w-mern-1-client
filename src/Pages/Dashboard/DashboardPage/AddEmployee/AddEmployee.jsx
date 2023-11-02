@@ -1,7 +1,9 @@
 import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
+import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const AddEmployee = () => {
+  const axiosSecure = useAxiosSecure()
   const handleAdd = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -27,18 +29,31 @@ const AddEmployee = () => {
       linkedIn,
       details,
     };
-    console.log(employee);
-    fetch("http://localhost:5000/employees", {
-      method: "POST",
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(employee),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
+
+
+    // fetch("http://localhost:5000/employees", {
+    //   method: "POST",
+    //   headers: {
+    //     'content-type': 'application/json'
+    //   },
+    //   body: JSON.stringify(employee),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.insertedId) {
+    //       Swal.fire(
+    //         "Added successful!!",
+    //         "New employee added successfully",
+    //         "success"
+    //       );
+    //       form.reset()
+    //     }
+    //   });
+
+      axiosSecure.post('employees', employee)
+      .then(res=> {
+        if (res.data.insertedId) {
           Swal.fire(
             "Added successful!!",
             "New employee added successfully",
@@ -46,7 +61,8 @@ const AddEmployee = () => {
           );
           form.reset()
         }
-      });
+      })
+
   };
   return (
     <>

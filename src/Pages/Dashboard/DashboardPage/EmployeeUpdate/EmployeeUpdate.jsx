@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const EmployeeUpdate = () => {
   const employee = useLoaderData();
@@ -9,6 +10,7 @@ const EmployeeUpdate = () => {
   const handleGoBack = () => {
     navigate(-1)
   }
+  const axiosSecure = useAxiosSecure()
   const {
     _id,
     name,
@@ -48,26 +50,39 @@ const EmployeeUpdate = () => {
       linkedIn,
       details,
     };
-    console.log(updatedEmployee);
-    fetch(`http://localhost:5000/employees/${_id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedEmployee),
+
+    // fetch(`http://localhost:5000/employees/${_id}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(updatedEmployee),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.modifiedCount) {
+    //       Swal.fire(
+    //         "Update successful!!",
+    //         "The employee's information updated successfully",
+    //         "success"
+    //       );
+    //       form.reset();
+    //     }
+    //   });
+
+    axiosSecure.put(`/employees/${_id}`,updatedEmployee)
+    .then(res=> {
+      if (res.data.modifiedCount) {
+        Swal.fire(
+          "Update successful!!",
+          "The employee's information updated successfully",
+          "success"
+        );
+        form.reset();
+      }
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount) {
-          Swal.fire(
-            "Update successful!!",
-            "The employee's information updated successfully",
-            "success"
-          );
-          form.reset();
-        }
-      });
+      
   };
   return (
     <>

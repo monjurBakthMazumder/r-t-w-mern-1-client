@@ -3,11 +3,13 @@ import Banner from "../../Component/Banner/Banner";
 import useAuth from "../../Hock/useAuth";
 import Swal from "sweetalert2";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 
 const Checkout = () => {
   const { user } = useAuth();
   const data = useLoaderData();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -21,23 +23,29 @@ const Checkout = () => {
     const date = form.date.value;
     const message = form.message.value;
     const information = { service, email, phone, date, message, price, img };
-    fetch("http://localhost:5000/bookings", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(information),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire(
-            "Checkout successful!!",
-            "Successfully Checkout",
-            "success"
-          );
-        }
-      });
+    // fetch("http://localhost:5000/bookings", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(information),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.insertedId) {
+    //       Swal.fire(
+    //         "Checkout successful!!",
+    //         "Successfully Checkout",
+    //         "success"
+    //       );
+    //     }
+    //   });
+
+    axiosSecure.post("/bookings", information).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire("Checkout successful!!", "Successfully Checkout", "success");
+      }
+    });
   };
   return (
     <>
