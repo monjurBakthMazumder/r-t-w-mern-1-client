@@ -40,8 +40,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/teams/:id',
-                element: <EmployeeDetails/>,
-                loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/employees/${params.id}`)
+                element: <EmployeeDetails/>
             },
             {
                 path: '/services',
@@ -50,12 +49,10 @@ const Router = createBrowserRouter([
             {
                 path: '/services/:id',
                 element: <Details/>,
-                loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/services/${params.id}`)
             },
             {
                 path: '/Checkout/:id',
-                element: <PrivateRoute><Checkout/></PrivateRoute>,
-                loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/services/${params.id}`)
+                element: <PrivateRoute><Checkout/></PrivateRoute>
             },
             {
                 path: '/booking',
@@ -88,8 +85,7 @@ const Router = createBrowserRouter([
                     },
                     {
                         path: '/dashboard/update-employee/:id',
-                        element: <EmployeeUpdate/>,
-                        loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/employees/${params.id}`)
+                        element: <EmployeeUpdate/>
                     },
                 ]
             },

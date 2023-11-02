@@ -1,9 +1,17 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Banner from "../../Component/Banner/Banner";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 
 const Details = () => {
-  const data = useLoaderData();
+  const [data, setData] = useState([])
+  const axiosSecure = useAxiosSecure()
+  const params = useParams()
+  useEffect(()=>{
+    axiosSecure.get(`/services/${params.id}`)
+    .then(res => setData(res.data))
+  },[axiosSecure, params.id])
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -37,7 +45,7 @@ const Details = () => {
               Facility
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {facility.map((fac, i) => (
+              {facility?.map((fac, i) => (
                 <div
                   className="my-2 bg-accent p-5 rounded border-y-2 border-secondary"
                   key={i}

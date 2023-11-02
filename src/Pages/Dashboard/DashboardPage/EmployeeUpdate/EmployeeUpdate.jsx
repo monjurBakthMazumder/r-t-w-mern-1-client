@@ -1,16 +1,23 @@
 import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import useAxiosSecure from "../../../../Hock/useAxiosSecure";
+import { useEffect, useState } from "react";
 
 const EmployeeUpdate = () => {
-  const employee = useLoaderData();
   const navigate = useNavigate()
+  
+  const [employee, setEmployee] = useState([])
+  const axiosSecure = useAxiosSecure()
+  const params = useParams()
+  useEffect(()=>{
+    axiosSecure.get(`/employees/${params.id}`)
+    .then(res => setEmployee(res.data))
+  },[axiosSecure, params.id])
   const handleGoBack = () => {
     navigate(-1)
   }
-  const axiosSecure = useAxiosSecure()
   const {
     _id,
     name,

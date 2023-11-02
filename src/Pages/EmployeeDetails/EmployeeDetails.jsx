@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   AiFillFacebook,
@@ -7,9 +7,17 @@ import {
   AiFillTwitterSquare,
   AiOutlineArrowLeft,
 } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 
 const EmployeeDetails = () => {
-  const employee = useLoaderData();
+  const [employee, setEmployee] = useState([])
+  const axiosSecure = useAxiosSecure()
+  const params = useParams()
+  useEffect(()=>{
+    axiosSecure.get(`/employees/${params.id}`)
+    .then(res => setEmployee(res.data))
+  },[axiosSecure, params.id])
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
