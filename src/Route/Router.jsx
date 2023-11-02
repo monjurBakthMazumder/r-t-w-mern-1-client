@@ -41,7 +41,7 @@ const Router = createBrowserRouter([
             {
                 path: '/teams/:id',
                 element: <EmployeeDetails/>,
-                loader: ({params}) => fetch(`http://localhost:5000/employees/${params.id}`)
+                loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/employees/${params.id}`)
             },
             {
                 path: '/services',
@@ -50,12 +50,12 @@ const Router = createBrowserRouter([
             {
                 path: '/services/:id',
                 element: <Details/>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/services/${params.id}`)
             },
             {
                 path: '/Checkout/:id',
                 element: <PrivateRoute><Checkout/></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/services/${params.id}`)
             },
             {
                 path: '/booking',
@@ -76,7 +76,7 @@ const Router = createBrowserRouter([
                     {
                         path: '/dashboard/update-services/:id',
                         element: <ServicesUpdate/>,
-                        loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                        loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/services/${params.id}`)
                     },
                     {
                         path: '/dashboard/all-employee',
@@ -89,7 +89,7 @@ const Router = createBrowserRouter([
                     {
                         path: '/dashboard/update-employee/:id',
                         element: <EmployeeUpdate/>,
-                        loader: ({params}) => fetch(`http://localhost:5000/employees/${params.id}`)
+                        loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/employees/${params.id}`)
                     },
                 ]
             },

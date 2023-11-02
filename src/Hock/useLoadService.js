@@ -1,12 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useLoadService = () => {
+    const axiosSecure =  useAxiosSecure()
     const [services, setServices] = useState([])
     useEffect(()=> {
-        axios.get('http://localhost:5000/services')
+        axiosSecure.get('/services')
         .then(res=> setServices(res.data))
-    },[])
+    },[axiosSecure])
     return services
 };
 
