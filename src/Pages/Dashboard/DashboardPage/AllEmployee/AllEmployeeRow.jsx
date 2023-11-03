@@ -24,13 +24,11 @@ const AllEmployeeRow = ({ employee, handleDelete }) => {
   } = employee || {};
   return (
     <tr className="text-base font-medium">
-      <th>
-        <td className="avatar">
-          <div className="mask mask-squircle w-12 h-12">
-            <img src={img} alt={`img of ${name}`} />
-          </div>
-        </td>
-      </th>
+      <td className="avatar">
+        <div className="mask mask-squircle w-12 h-12">
+          <img src={img} alt={`img of ${name}`} />
+        </div>
+      </td>
       <td>
         <Link
           to={`/teams/${_id}`}
@@ -58,7 +56,7 @@ const AllEmployeeRow = ({ employee, handleDelete }) => {
           </Link>
         </div>
       </td>
-      <th>
+      <td>
         <div className="flex items-center gap-2">
           <Link to={`/dashboard/update-employee/${_id}`}>
             <AiFillEdit className="text-2xl text-primary hover:text-secondary" />
@@ -68,7 +66,7 @@ const AllEmployeeRow = ({ employee, handleDelete }) => {
             className="text-2xl text-primary hover:text-red-600 cursor-pointer"
           />
         </div>
-      </th>
+      </td>
     </tr>
   );
 };
