@@ -9,15 +9,19 @@ import {
 } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hock/useAxiosSecure";
+import LoadingEmployeeDetails from "../../Component/Loading/LoadingEmployeeDetails";
 
 const EmployeeDetails = () => {
-  const [employee, setEmployee] = useState([])
-  const axiosSecure = useAxiosSecure()
-  const params = useParams()
-  useEffect(()=>{
-    axiosSecure.get(`/employees/${params.id}`)
-    .then(res => setEmployee(res.data))
-  },[axiosSecure, params.id])
+  const [employee, setEmployee] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
+  const params = useParams();
+  useEffect(() => {
+    axiosSecure.get(`/employees/${params.id}`).then((res) => {
+      setEmployee(res.data);
+      setLoading(false);
+    });
+  }, [axiosSecure, params.id]);
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -41,36 +45,39 @@ const EmployeeDetails = () => {
       >
         <AiOutlineArrowLeft /> Go back
       </button>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="">
-          <img src={img} alt="" className="w-full h-fit" />
-        </div>
-        <div className="md:col-span-2">
-          <h1 className="text-3xl md:text-4xl font-bold text-primary">
-            {name}
-          </h1>
-          <p className="text-xl font-bold text-secondary">{designation}</p>
-          <p className="font-light text-neutral">Email: {email}</p>
-          <div className="flex items-center gap-1 my-5">
-            <Link to={facebook} target="_blank">
-              <AiFillFacebook className="text-3xl text-primary hover:text-secondary" />
-            </Link>
-            <Link to={instagram} target="_blank">
-              <AiFillInstagram className="text-3xl text-primary hover:text-secondary" />
-            </Link>
-            <Link to={twitter} target="_blank">
-              <AiFillTwitterSquare className="text-3xl text-primary hover:text-secondary" />
-            </Link>
-            <Link to={linkedIn} target="_blank">
-              <AiFillLinkedin className="text-3xl text-primary hover:text-secondary" />
-            </Link>
+      {loading ? (
+        <LoadingEmployeeDetails />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="">
+            <img src={img} alt="" className="w-full h-fit" />
           </div>
-          <p className="text-neutral font-light sm:text-lg text-justify my-5">
-            {details}
-          </p>
+          <div className="md:col-span-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-primary">
+              {name}
+            </h1>
+            <p className="text-xl font-bold text-secondary">{designation}</p>
+            <p className="font-light text-neutral">Email: {email}</p>
+            <div className="flex items-center gap-1 my-5">
+              <Link to={facebook} target="_blank">
+                <AiFillFacebook className="text-3xl text-primary hover:text-secondary" />
+              </Link>
+              <Link to={instagram} target="_blank">
+                <AiFillInstagram className="text-3xl text-primary hover:text-secondary" />
+              </Link>
+              <Link to={twitter} target="_blank">
+                <AiFillTwitterSquare className="text-3xl text-primary hover:text-secondary" />
+              </Link>
+              <Link to={linkedIn} target="_blank">
+                <AiFillLinkedin className="text-3xl text-primary hover:text-secondary" />
+              </Link>
+            </div>
+            <p className="text-neutral font-light sm:text-lg text-justify my-5">
+              {details}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
