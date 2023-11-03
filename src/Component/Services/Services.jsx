@@ -53,7 +53,7 @@ const Services = () => {
       <div className="flex flex-wrap justify-center items-center gap-2 my-10">
         <button
           onClick={handlePrevPage}
-          className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white text-secondary bg-transparent`}
+          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
         >
           Prev
         </button>
@@ -61,25 +61,25 @@ const Services = () => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white ${
+            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
               currentPage === page
-                ? "bg-secondary text-white"
-                : "text-secondary bg-transparent"
+                ? "bg-primary text-white"
+                : "text-primary bg-transparent"
             }`}
           >
-            {++page}
+            {page}
           </button>
         ))}
         <button
           onClick={handleNextPage}
-          className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white text-secondary bg-transparent`}
+          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
         >
           Next
         </button>
         <select
           value={itemPerPage}
           onChange={handleItemParPageChange}
-          className="select select-secondary w-fit text-secondary"
+          className="select select-primary w-fit text-primary"
         >
           <option value="5">5</option>
           <option value="10">10</option>
