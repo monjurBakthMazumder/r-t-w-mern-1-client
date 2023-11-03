@@ -7,15 +7,14 @@ import useAxiosSecure from "../../Hock/useAxiosSecure";
 import { useEffect, useState } from "react";
 
 const Checkout = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const params = useParams()
-  useEffect(()=>{
-    axiosSecure.get(`/services/${params.id}`)
-    .then(res => setData(res.data))
-  },[axiosSecure, params.id])
+  const params = useParams();
+  useEffect(() => {
+    axiosSecure.get(`/services/${params.id}`).then((res) => setData(res.data));
+  }, [axiosSecure, params.id]);
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -29,23 +28,6 @@ const Checkout = () => {
     const date = form.date.value;
     const message = form.message.value;
     const information = { service, email, phone, date, message, price, img };
-    // fetch("http://localhost:5000/bookings", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(information),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.insertedId) {
-    //       Swal.fire(
-    //         "Checkout successful!!",
-    //         "Successfully Checkout",
-    //         "success"
-    //       );
-    //     }
-    //   });
 
     axiosSecure.post("/bookings", information).then((res) => {
       if (res.data.insertedId) {

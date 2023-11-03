@@ -9,12 +9,6 @@ const Booking = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:5000/bookings?email=${user?.email}`, {credentials: 'include'})
-  //     .then((res) => res.json())
-  //     .then((data) => setBookings(data));
-  // }, [user?.email]);
-
   useEffect(() => {
     axiosSecure
       .get(`/bookings?email=${user?.email}`)
@@ -32,24 +26,6 @@ const Booking = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // fetch(`http://localhost:5000/bookings/${id}`, {
-        //   method: "DELETE",
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data.deletedCount) {
-        //       Swal.fire(
-        //         "Deleted!",
-        //         "Your booked service has been deleted.",
-        //         "success"
-        //       );
-        //       const remainder = bookings?.filter(
-        //         (booking) => booking?._id !== id
-        //       );
-        //       setBookings(remainder);
-        //     }
-        //   });
-
         axiosSecure.delete(`/bookings/${id}`).then((res) => {
           if (res.data.deletedCount) {
             Swal.fire(

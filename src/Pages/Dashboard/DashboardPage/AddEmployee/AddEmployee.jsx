@@ -3,7 +3,7 @@ import Banner from "../../../../Component/Banner/Banner";
 import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const AddEmployee = () => {
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const handleAdd = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,48 +30,22 @@ const AddEmployee = () => {
       details,
     };
 
-
-    // fetch("http://localhost:5000/employees", {
-    //   method: "POST",
-    //   headers: {
-    //     'content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(employee),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.insertedId) {
-    //       Swal.fire(
-    //         "Added successful!!",
-    //         "New employee added successfully",
-    //         "success"
-    //       );
-    //       form.reset()
-    //     }
-    //   });
-
-      axiosSecure.post('employees', employee)
-      .then(res=> {
-        if (res.data.insertedId) {
-          Swal.fire(
-            "Added successful!!",
-            "New employee added successfully",
-            "success"
-          );
-          form.reset()
-        }
-      })
-
+    axiosSecure.post("employees", employee).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire(
+          "Added successful!!",
+          "New employee added successfully",
+          "success"
+        );
+        form.reset();
+      }
+    });
   };
   return (
     <>
       <Banner title={"Add Employee"} />
       <div className="my-10 w-full bg-accent rounded px-5 py-10 sm:px-14 sm:py-20">
-        <form
-          className="text-lg font-light text-primary"
-          onSubmit={handleAdd}
-        >
+        <form className="text-lg font-light text-primary" onSubmit={handleAdd}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <label>
               Name

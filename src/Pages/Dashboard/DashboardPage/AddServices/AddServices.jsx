@@ -3,7 +3,7 @@ import Banner from "../../../../Component/Banner/Banner";
 import useAxiosSecure from "../../../../Hock/useAxiosSecure";
 
 const AddServices = () => {
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const handleAddService = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -19,63 +19,41 @@ const AddServices = () => {
     const facility4 = form.facility4.value;
     const facility4details = form.facility4details.value;
     const description = form.description.value;
-    const service = { 
-        title, 
-        img, 
-        price,
-         description, 
-         facility: [
-            {
-                name: facility1,
-                details: facility1details
-            },
-            {
-                name: facility2,
-                details: facility2details
-            },
-            {
-                name: facility3,
-                details: facility3details
-            },
-            {
-                name: facility4,
-                details: facility4details
-            },
-         ]
-         };
+    const service = {
+      title,
+      img,
+      price,
+      description,
+      facility: [
+        {
+          name: facility1,
+          details: facility1details,
+        },
+        {
+          name: facility2,
+          details: facility2details,
+        },
+        {
+          name: facility3,
+          details: facility3details,
+        },
+        {
+          name: facility4,
+          details: facility4details,
+        },
+      ],
+    };
 
-
-    // fetch("http://localhost:5000/services", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(service),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.insertedId) {
-    //       Swal.fire(
-    //         "Added successful!!",
-    //         "New services added successfully",
-    //         "success"
-    //       );
-    //       form.reset();
-    //     }
-    //   });
-
-      axiosSecure.post('/services', service)
-      .then(res=> {
-        if (res.data.insertedId) {
-          Swal.fire(
-            "Added successful!!",
-            "New services added successfully",
-            "success"
-          );
-          form.reset();
-        }
-      })
+    axiosSecure.post("/services", service).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire(
+          "Added successful!!",
+          "New services added successfully",
+          "success"
+        );
+        form.reset();
+      }
+    });
   };
   return (
     <>

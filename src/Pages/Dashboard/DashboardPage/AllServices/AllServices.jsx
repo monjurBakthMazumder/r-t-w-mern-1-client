@@ -7,13 +7,8 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    // fetch('http://localhost:5000/services')
-    //     .then(res=> res.json())
-    //     .then(data=> setServices(data))
-
     axiosSecure.get("/services").then((res) => setServices(res.data));
   }, [axiosSecure]);
-  console.log(services);
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -25,20 +20,6 @@ const AllServices = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // fetch(`http://localhost:5000/services/${id}`, {
-        //   method: "DELETE",
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data.deletedCount) {
-        //       Swal.fire("Deleted!", "The service has been deleted.", "success");
-        //       const remainder = services?.filter(
-        //         (employee) => employee?._id !== id
-        //       );
-        //       setServices(remainder);
-        //     }
-        //   });
-
         axiosSecure.delete(`/services/${id}`).then((res) => {
           if (res.data.deletedCount) {
             Swal.fire("Deleted!", "The service has been deleted.", "success");

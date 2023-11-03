@@ -52,10 +52,9 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-        const userEmail = currentUser?.email || user?.email;
-        const loggedUser = { email: userEmail };
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       setUser(currentUser);
-      console.log(currentUser);
       setLoading(false);
 
       if (currentUser) {
@@ -66,8 +65,7 @@ const AuthProvider = ({ children }) => {
           .then((res) => {
             console.log("token respons", res.data);
           });
-      }
-      else{
+      } else {
         axios
           .post("http://localhost:5000/logout", loggedUser, {
             withCredentials: true,
