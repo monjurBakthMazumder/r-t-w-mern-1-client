@@ -57,7 +57,7 @@ const Services = () => {
         >
           Prev
         </button>
-        {pages?.map((page) => (
+        {pages?.map((page,i) => (
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
@@ -67,7 +67,7 @@ const Services = () => {
                 : "text-primary bg-transparent"
             }`}
           >
-            {page}
+            {++i}
           </button>
         ))}
         <button

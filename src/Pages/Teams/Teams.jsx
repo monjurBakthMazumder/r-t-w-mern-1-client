@@ -61,7 +61,7 @@ const Teams = () => {
           >
             Prev
           </button>
-          {pages?.map((page) => (
+          {pages?.map((page,i) => (
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
@@ -71,7 +71,7 @@ const Teams = () => {
                   : "text-primary bg-transparent"
               }`}
             >
-              {page}
+              {++i}
             </button>
           ))}
           <button
