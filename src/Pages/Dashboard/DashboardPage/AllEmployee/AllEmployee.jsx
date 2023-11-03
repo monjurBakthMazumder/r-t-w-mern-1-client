@@ -8,12 +8,16 @@ const AllEmployee = () => {
   const [employees, setEmployees] = useState([]);
   const [count, setCount] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [countLoading, setCountLoading] = useState(true);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
     setLoading(true)
-    axiosSecure.get("/employees-count").then((res) => setCount(res.data.count));
+    axiosSecure.get("/employees-count").then((res) => {
+      setCount(res.data.count);
+      setCountLoading(false)
+    });
     axiosSecure
       .get(`/employees?page=${currentPage}&size=${itemPerPage}`)
       .then((res) => {
@@ -64,7 +68,7 @@ const AllEmployee = () => {
   return (
     <div className="my-10 md:my-20 w-full">
       <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
-        Total Employees: {count}
+        Total Employees: {countLoading ? <span className="loading loading-spinner loading-sm"></span> : count}
       </h1>
       <div className="overflow-x-auto">
         <table className="table">

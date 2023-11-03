@@ -7,6 +7,7 @@ import LoadingRow from "../../../../Component/Loading/LoadingRow";
 const AllServices = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [countLoading, setCountLoading] = useState(true);
   const [count, setCount] = useState(null);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
@@ -15,6 +16,7 @@ const AllServices = () => {
     setLoading(true);
     axiosSecure.get("/services-count").then((res) => {
       setCount(res.data.count);
+      setCountLoading(false)
     });
     axiosSecure
       .get(`/services?page=${currentPage}&size=${itemPerPage}`)
@@ -67,7 +69,7 @@ const AllServices = () => {
   return (
     <div className="my-10 md:my-20 w-full">
       <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
-        Total Services: {count}
+        Total Services: {countLoading ? <span className="loading loading-spinner loading-sm"></span> : count}
       </h1>
       <div className="overflow-x-auto">
         <table className="table">

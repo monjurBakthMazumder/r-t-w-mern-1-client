@@ -2,18 +2,28 @@ import { useEffect, useState } from "react";
 import Banner from "../../Component/Banner/Banner";
 import TeamsCard from "../../Component/TeamsCard/TeamsCard";
 import useAxiosSecure from "../../Hock/useAxiosSecure";
+import LoadingTeamCard from "../../Component/Loading/LoadingTeamCard";
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [count, setCount] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [countLoading, setCountLoading] = useState(true);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    axiosSecure.get("/employees-count").then((res) => setCount(res.data.count));
+    setLoading(true)
+    axiosSecure.get("/employees-count").then((res) => {
+      setCount(res.data.count);
+      setCountLoading(false)
+    });
     axiosSecure
       .get(`/employees?page=${currentPage}&size=${itemPerPage}`)
-      .then((res) => setTeams(res.data));
+      .then((res) => {
+        setTeams(res.data);
+        setLoading(false);
+      });
   }, [axiosSecure, currentPage, itemPerPage]);
   const numberOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
@@ -46,13 +56,17 @@ const Teams = () => {
           streamlined cloud solution.
         </p>
         <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-5">
-          Total Employees: {count}
+        Total Employees: {countLoading ? <span className="loading loading-spinner loading-sm"></span> : count}
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {teams?.map((team) => (
-            <TeamsCard key={team._id} team={team} />
-          ))}
-        </div>
+        {loading ? (
+          <LoadingTeamCard />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            {teams?.map((team) => (
+              <TeamsCard key={team._id} team={team} />
+            ))}
+          </div>
+        )}
 
         <div className="flex flex-wrap justify-center items-center gap-2 my-10">
           <button
@@ -61,7 +75,7 @@ const Teams = () => {
           >
             Prev
           </button>
-          {pages?.map((page,i) => (
+          {pages?.map((page, i) => (
             <button
               key={page}
               onClick={() => setCurrentPage(page)}

@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
 import ServiceCard from "./ServiceCard";
 import useAxiosSecure from "../../Hock/useAxiosSecure";
+import LoadingService from "../Loading/LoadingService";
 
 const Services = () => {
   const [services, setServices] = useState([]);
   const [count, setCount] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [countLoading, setCountLoading] = useState(true);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    axiosSecure.get("/services-count").then((res) => setCount(res.data.count));
+    setLoading(true);
+    axiosSecure.get("/services-count").then((res) => {
+      setCount(res.data.count);
+      setCountLoading(false)
+    });
     axiosSecure
       .get(`/services?page=${currentPage}&size=${itemPerPage}`)
-      .then((res) => setServices(res.data));
+      .then((res) => {
+        setServices(res.data);
+        setLoading(false);
+      });
   }, [axiosSecure, currentPage, itemPerPage]);
   const numberOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
@@ -43,13 +53,17 @@ const Services = () => {
         cloud solution.
       </p>
       <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-5">
-        Total Services: {count}
+      Total Services: {countLoading ? <span className="loading loading-spinner loading-sm"></span> : count}
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {services?.map((service) => (
-          <ServiceCard key={service._id} service={service} />
-        ))}
-      </div>
+      {loading ? (
+        <LoadingService />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services?.map((service) => (
+            <ServiceCard key={service._id} service={service} />
+          ))}
+        </div>
+      )}
       <div className="flex flex-wrap justify-center items-center gap-2 my-10">
         <button
           onClick={handlePrevPage}
@@ -57,7 +71,7 @@ const Services = () => {
         >
           Prev
         </button>
-        {pages?.map((page,i) => (
+        {pages?.map((page, i) => (
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
