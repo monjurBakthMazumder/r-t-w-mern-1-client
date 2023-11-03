@@ -46,6 +46,7 @@ const AllServices = () => {
               (employee) => employee?._id !== id
             );
             setServices(remainder);
+            setCount(count-1)
           }
         });
       }

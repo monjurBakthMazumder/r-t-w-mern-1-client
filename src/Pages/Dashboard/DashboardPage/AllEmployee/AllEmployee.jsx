@@ -46,6 +46,7 @@ const AllEmployee = () => {
               (employee) => employee?._id !== id
             );
             setEmployees(remainder);
+            setCount(count-1)
           }
         });
       }
