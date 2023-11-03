@@ -1,17 +1,26 @@
 import Swal from "sweetalert2";
 import Banner from "../../../../Component/Banner/Banner";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import useAxiosSecure from "../../../../Hock/useAxiosSecure";
+import { useEffect, useState } from "react";
 
 const ServicesUpdate = () => {
-  const loadedServices = useLoaderData();
+  // const loadedServices = useLoaderData();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const [loadedServices, setLoadedServices] = useState({});
   const handleGoBack = () => {
     navigate(-1);
   };
+  const params = useParams();
 
-  const axiosSecure = useAxiosSecure()
+  useEffect(() => {
+    axiosSecure
+      .get(`/services/${params.id}`)
+      .then((res) => setLoadedServices(res.data));
+  }, [axiosSecure, params?.id]);
+  console.log(loadedServices);
   const { _id, title, img, price, description, facility } =
     loadedServices || {};
   const handleUpdateService = (e) => {
@@ -54,18 +63,17 @@ const ServicesUpdate = () => {
       ],
     };
 
+    console.log(updateService);
 
-
-      axiosSecure.put(`/services/${_id}`, updateService)
-      .then(res=> {
-        if (res.data.modifiedCount) {
-          Swal.fire(
-            "Update successful!!",
-            "Services Updated successfully",
-            "success"
-          );
-        }
-      })
+    axiosSecure.put(`/services/${_id}`, updateService).then((res) => {
+      if (res.data.modifiedCount) {
+        Swal.fire(
+          "Update successful!!",
+          "Services Updated successfully",
+          "success"
+        );
+      }
+    });
   };
   return (
     <>
@@ -118,94 +126,32 @@ const ServicesUpdate = () => {
               />
             </label>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-            <label>
-              Facility 1
-              <input
-                type="text"
-                placeholder="Facility 1"
-                defaultValue={facility[0]?.name}
-                name="facility1"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-            <label>
-              Details
-              <input
-                type="text"
-                placeholder="Facility 1 details"
-                defaultValue={facility[0]?.details}
-                name="facility1details"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-            <label>
-              Facility 2
-              <input
-                type="text"
-                placeholder="Facility 2"
-                defaultValue={facility[1]?.name}
-                name="facility2"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-            <label>
-              Details
-              <input
-                type="text"
-                placeholder="Facility 2 details"
-                defaultValue={facility[1]?.details}
-                name="facility2details"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-            <label>
-              Facility 3
-              <input
-                type="text"
-                placeholder="Facility 3"
-                defaultValue={facility[2]?.name}
-                name="facility3"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-            <label>
-              Details
-              <input
-                type="text"
-                placeholder="Facility 3 details"
-                defaultValue={facility[2]?.details}
-                name="facility3details"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-            <label>
-              Facility 4
-              <input
-                type="text"
-                placeholder="Facility 4"
-                defaultValue={facility[3]?.name}
-                name="facility4"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-            <label>
-              Details
-              <input
-                type="text"
-                placeholder="Facility 4 details"
-                defaultValue={facility[3]?.details}
-                name="facility4details"
-                className="input input-bordered input-secondary w-full mt-1"
-              />
-            </label>
-          </div>
+
+          {facility?.map((facil, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5" key={i}>
+              <label>
+                Facility {++i}
+                <input
+                  type="text"
+                  placeholder={`Facility ${i}`}
+                  defaultValue={facility[--i]?.name}
+                  name={`facility${++i}`}
+                  className="input input-bordered input-secondary w-full mt-1"
+                />
+              </label>
+              <label>
+                Details
+                <input
+                  type="text"
+                  placeholder={`Facility ${i} details`}
+                  defaultValue={facility[--i]?.details}
+                  name={`facility${++i}details`}
+                  className="input input-bordered input-secondary w-full mt-1"
+                />
+              </label>
+            </div>
+          ))}
+
           <div className="mb-5">
             <label>
               Description
