@@ -11,7 +11,9 @@ const AllServices = () => {
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
     axiosSecure.get("/services-count").then((res) => setCount(res.data.count));
-    axiosSecure.get(`/services?page=${currentPage}&size=${itemPerPage}`).then((res) => setServices(res.data));
+    axiosSecure
+      .get(`/services?page=${currentPage}&size=${itemPerPage}`)
+      .then((res) => setServices(res.data));
   }, [axiosSecure, currentPage, itemPerPage]);
   const numberOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
@@ -39,24 +41,24 @@ const AllServices = () => {
       }
     });
   };
-  const handleItemParPageChange = e => {
-    setItemPerPage(Number(e.target.value))
-    setCurrentPage(0)
-  }
+  const handleItemParPageChange = (e) => {
+    setItemPerPage(Number(e.target.value));
+    setCurrentPage(0);
+  };
   const handlePrevPage = () => {
-    if(currentPage > 0){
-      setCurrentPage(currentPage - 1)
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
     }
-  }
+  };
   const handleNextPage = () => {
-    if(currentPage <  pages.length -1){
-      setCurrentPage(currentPage + 1)
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
     }
-  }
+  };
   return (
     <div className="my-10 md:my-20 w-full">
       <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
-        Total Services: {services?.length}
+        Total Services: {count}
       </h1>
       <div className="overflow-x-auto">
         <table className="table">
@@ -75,7 +77,7 @@ const AllServices = () => {
                 key={service._id}
                 service={service}
                 handleDelete={handleDelete}
-                i = {i}
+                i={i}
               />
             ))}
           </tbody>
@@ -83,24 +85,36 @@ const AllServices = () => {
         <hr />
       </div>
       <div className="flex flex-wrap justify-center items-center gap-2 my-10">
-      <button
-            onClick={handlePrevPage}
-            className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white text-secondary bg-transparent`}
-          >Prev</button>
+        <button
+          onClick={handlePrevPage}
+          className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white text-secondary bg-transparent`}
+        >
+          Prev
+        </button>
         {pages?.map((page) => (
           <button
             key={page}
-            onClick={()=> setCurrentPage(page)}
-            className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white ${currentPage === page ? "bg-secondary text-white" : "text-secondary bg-transparent"}`}
+            onClick={() => setCurrentPage(page)}
+            className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white ${
+              currentPage === page
+                ? "bg-secondary text-white"
+                : "text-secondary bg-transparent"
+            }`}
           >
-            {page}
+            {++page}
           </button>
         ))}
         <button
-            onClick={handleNextPage}
-            className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white text-secondary bg-transparent`}
-          >Next</button>
-        <select value={itemPerPage} onChange={handleItemParPageChange} className="select select-secondary w-fit text-secondary">
+          onClick={handleNextPage}
+          className={`px-2 py-1 border border-secondary flex justify-center items-center gap-2 hover:bg-secondary hover:text-white text-secondary bg-transparent`}
+        >
+          Next
+        </button>
+        <select
+          value={itemPerPage}
+          onChange={handleItemParPageChange}
+          className="select select-secondary w-fit text-secondary"
+        >
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
