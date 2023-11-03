@@ -12,6 +12,7 @@ const AllServices = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
+    setLoading(true);
     axiosSecure.get("/services-count").then((res) => {
       setCount(res.data.count);
     });
@@ -80,59 +81,63 @@ const AllServices = () => {
             </tr>
           </thead>
           <tbody>
-            {services?.map((service, i) => (
-              <AllServicesRow
-                key={service._id}
-                service={service}
-                handleDelete={handleDelete}
-                i={i}
-              />
-            ))}
+            {loading ? (
+              <tr>
+                <th colSpan="4">
+                  <LoadingRow />
+                </th>
+              </tr>
+            ) : (
+              services?.map((service, i) => (
+                <AllServicesRow
+                  key={service._id}
+                  service={service}
+                  handleDelete={handleDelete}
+                  i={i}
+                />
+              ))
+            )}
           </tbody>
         </table>
         <hr />
       </div>
-      {loading ? (
-        <LoadingRow />
-      ) : (
-        <div className="flex flex-wrap justify-center items-center gap-2 my-10">
+      <div className="flex flex-wrap justify-center items-center gap-2 my-10">
+        <button
+          onClick={handlePrevPage}
+          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
+        >
+          Prev
+        </button>
+        {pages?.map((page) => (
           <button
-            onClick={handlePrevPage}
-            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
+              currentPage === page
+                ? "bg-primary text-white"
+                : "text-primary bg-transparent"
+            }`}
           >
-            Prev
+            {page}
           </button>
-          {pages?.map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
-                currentPage === page
-                  ? "bg-primary text-white"
-                  : "text-primary bg-transparent"
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-          <button
-            onClick={handleNextPage}
-            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
-          >
-            Next
-          </button>
-          <select
-            value={itemPerPage}
-            onChange={handleItemParPageChange}
-            className="select select-primary w-fit text-primary"
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      )}
+        ))}
+        <button
+          onClick={handleNextPage}
+          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
+        >
+          Next
+        </button>
+        <select
+          value={itemPerPage}
+          onChange={handleItemParPageChange}
+          className="select select-primary w-fit text-primary"
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
     </div>
   );
 };
