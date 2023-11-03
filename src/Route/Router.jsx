@@ -73,6 +73,7 @@ const Router = createBrowserRouter([
                     {
                         path: '/dashboard/update-services/:id',
                         element: <ServicesUpdate/>,
+                        // loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
                         loader: ({params}) => fetch(`https://car-care-server-fawn.vercel.app/services/${params.id}`)
                     },
                     {

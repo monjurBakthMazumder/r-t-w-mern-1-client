@@ -58,26 +58,6 @@ const EmployeeUpdate = () => {
       details,
     };
 
-    // fetch(`http://localhost:5000/employees/${_id}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(updatedEmployee),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.modifiedCount) {
-    //       Swal.fire(
-    //         "Update successful!!",
-    //         "The employee's information updated successfully",
-    //         "success"
-    //       );
-    //       form.reset();
-    //     }
-    //   });
-
     axiosSecure.put(`/employees/${_id}`,updatedEmployee)
     .then(res=> {
       if (res.data.modifiedCount) {

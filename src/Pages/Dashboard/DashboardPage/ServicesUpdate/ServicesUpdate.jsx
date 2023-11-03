@@ -55,24 +55,6 @@ const ServicesUpdate = () => {
     };
 
 
-    // fetch(`http://localhost:5000/services/${_id}`, {
-    //   method: "Put",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(updateService),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.modifiedCount) {
-    //       Swal.fire(
-    //         "Update successful!!",
-    //         "Services Updated successfully",
-    //         "success"
-    //       );
-    //     }
-    //   });
 
       axiosSecure.put(`/services/${_id}`, updateService)
       .then(res=> {
