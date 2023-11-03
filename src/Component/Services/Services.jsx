@@ -33,9 +33,6 @@ const Services = () => {
   };
   return (
     <div className="my-10 md:my-20 px-[5%] sm:px-[10%]">
-      <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
-        Total Services: {count}
-      </h1>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
         Our Featured Services
       </h1>
@@ -45,6 +42,9 @@ const Services = () => {
         evolved from generation X is on the runway heading towards a streamlined
         cloud solution.
       </p>
+      <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-5">
+        Total Services: {count}
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {services?.map((service) => (
           <ServiceCard key={service._id} service={service} />
