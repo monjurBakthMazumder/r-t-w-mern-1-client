@@ -2,18 +2,25 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import AllServicesRow from "./AllServicesRow";
 import useAxiosSecure from "../../../../Hock/useAxiosSecure";
+import LoadingRow from "../../../../Component/Loading/LoadingRow";
 
 const AllServices = () => {
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(null);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    axiosSecure.get("/services-count").then((res) => setCount(res.data.count));
+    axiosSecure.get("/services-count").then((res) => {
+      setCount(res.data.count);
+    });
     axiosSecure
       .get(`/services?page=${currentPage}&size=${itemPerPage}`)
-      .then((res) => setServices(res.data));
+      .then((res) => {
+        setServices(res.data);
+        setLoading(false);
+      });
   }, [axiosSecure, currentPage, itemPerPage]);
   const numberOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
@@ -55,6 +62,7 @@ const AllServices = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
   return (
     <div className="my-10 md:my-20 w-full">
       <h1 className="text-2xl md:text-3xl text-center text-primary underline font-bold mb-10">
@@ -84,43 +92,47 @@ const AllServices = () => {
         </table>
         <hr />
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-2 my-10">
-        <button
-          onClick={handlePrevPage}
-          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
-        >
-          Prev
-        </button>
-        {pages?.map((page) => (
+      {loading ? (
+        <LoadingRow />
+      ) : (
+        <div className="flex flex-wrap justify-center items-center gap-2 my-10">
           <button
-            key={page}
-            onClick={() => setCurrentPage(page)}
-            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
-              currentPage === page
-                ? "bg-primary text-white"
-                : "text-primary bg-transparent"
-            }`}
+            onClick={handlePrevPage}
+            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
           >
-            {page}
+            Prev
           </button>
-        ))}
-        <button
-          onClick={handleNextPage}
-          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
-        >
-          Next
-        </button>
-        <select
-          value={itemPerPage}
-          onChange={handleItemParPageChange}
-          className="select select-primary w-fit text-primary"
-        >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-        </select>
-      </div>
+          {pages?.map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
+                currentPage === page
+                  ? "bg-primary text-white"
+                  : "text-primary bg-transparent"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+          <button
+            onClick={handleNextPage}
+            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
+          >
+            Next
+          </button>
+          <select
+            value={itemPerPage}
+            onChange={handleItemParPageChange}
+            className="select select-primary w-fit text-primary"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      )}
     </div>
   );
 };

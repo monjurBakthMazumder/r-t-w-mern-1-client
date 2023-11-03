@@ -2,10 +2,12 @@ import Swal from "sweetalert2";
 import AllEmployeeRow from "./AllEmployeeRow";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../Hock/useAxiosSecure";
+import LoadingRow from "../../../../Component/Loading/LoadingRow";
 
 const AllEmployee = () => {
   const [employees, setEmployees] = useState([]);
   const [count, setCount] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
@@ -13,7 +15,10 @@ const AllEmployee = () => {
     axiosSecure.get("/employees-count").then((res) => setCount(res.data.count));
     axiosSecure
       .get(`/employees?page=${currentPage}&size=${itemPerPage}`)
-      .then((res) => setEmployees(res.data));
+      .then((res) => {
+        setEmployees(res.data);
+        setLoading(false);
+      });
   }, [axiosSecure, currentPage, itemPerPage]);
   const numberOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
@@ -85,43 +90,47 @@ const AllEmployee = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-2 my-10">
-        <button
-          onClick={handlePrevPage}
-          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
-        >
-          Prev
-        </button>
-        {pages?.map((page) => (
+      {loading ? (
+        <LoadingRow />
+      ) : (
+        <div className="flex flex-wrap justify-center items-center gap-2 my-10">
           <button
-            key={page}
-            onClick={() => setCurrentPage(page)}
-            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
-              currentPage === page
-                ? "bg-primary text-white"
-                : "text-primary bg-transparent"
-            }`}
+            onClick={handlePrevPage}
+            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
           >
-            {page}
+            Prev
           </button>
-        ))}
-        <button
-          onClick={handleNextPage}
-          className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
-        >
-          Next
-        </button>
-        <select
-          value={itemPerPage}
-          onChange={handleItemParPageChange}
-          className="select select-primary w-fit text-primary"
-        >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-        </select>
-      </div>
+          {pages?.map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white ${
+                currentPage === page
+                  ? "bg-primary text-white"
+                  : "text-primary bg-transparent"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+          <button
+            onClick={handleNextPage}
+            className={`px-2 py-1 border border-primary flex justify-center items-center gap-2 hover:bg-primary hover:text-white text-primary bg-transparent`}
+          >
+            Next
+          </button>
+          <select
+            value={itemPerPage}
+            onChange={handleItemParPageChange}
+            className="select select-primary w-fit text-primary"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      )}
     </div>
   );
 };
